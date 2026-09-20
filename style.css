@@ -1,0 +1,912 @@
+/* ============================================================
+   DUVENSON METELLUS — PORTFOLIO
+   ============================================================
+
+   QUICK REFERENCE — things you'll most likely want to change:
+
+   Colors        → :root variables at the top
+   Fonts         → --serif and --sans in :root, and the Google
+                   Fonts link in index.html <head>
+   Max width     → --max-width
+   Section padding → --section-pad
+   Accent color  → --accent (currently warm bronze)
+
+   ============================================================ */
+
+
+/* ============================================================
+   VARIABLES
+   ============================================================ */
+:root {
+  /* Palette */
+  --bg:           #0A0A0A;   /* near-black background */
+  --fg:           #FAFAF8;   /* off-white text */
+  --muted:        #686868;   /* secondary / caption text */
+  --border:       #1C1C1C;   /* subtle dividers */
+  --accent:       #B8975A;   /* warm bronze — used sparingly */
+
+  /* Type */
+  --serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --sans:  'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Layout */
+  --max-width:   1080px;
+  --h-pad:       clamp(1.5rem, 5vw, 4rem);
+  --section-pad: clamp(5rem, 12vh, 8rem);
+}
+
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--fg);
+  font-family: var(--sans);
+  font-weight: 300;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+ul {
+  list-style: none;
+}
+
+
+/* ============================================================
+   LAYOUT HELPERS
+   ============================================================ */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--h-pad);
+}
+
+section {
+  padding: var(--section-pad) 0;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Section label — the small uppercase tag above each section */
+.section-header {
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+.section-label {
+  font-family: var(--sans);
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.4rem var(--h-pad);
+  background: rgba(10, 10, 10, 0.90);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-monogram {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  color: var(--fg);
+}
+
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+}
+
+.nav-links a {
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  transition: color 0.25s ease;
+}
+
+.nav-links a:hover {
+  color: var(--fg);
+}
+
+
+/* ============================================================
+   HERO
+   ============================================================ */
+#hero {
+  min-height: 100svh;  /* short viewport fallback handled by min-height */
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-top: 5rem;   /* clear the fixed nav */
+  border-bottom: 1px solid var(--border);
+}
+
+.hero-content {
+  padding: clamp(3rem, 8vh, 6rem) 0;
+}
+
+.hero-location {
+  font-family: var(--sans);
+  font-size: 0.65rem;
+  font-weight: 300;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 2rem;
+}
+
+.hero-name {
+  font-family: var(--serif);
+  font-size: clamp(3.8rem, 11vw, 9.5rem);
+  font-weight: 300;
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  color: var(--fg);
+  margin-bottom: 2.5rem;
+}
+
+/* Bronze hairline divider */
+.hero-rule {
+  width: 56px;
+  height: 1px;
+  background-color: var(--accent);
+  margin-bottom: 2.5rem;
+}
+
+.hero-tagline {
+  font-family: var(--sans);
+  font-size: clamp(0.875rem, 1.4vw, 1.05rem);
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.9;
+  max-width: 380px;
+  margin-bottom: 3rem;
+}
+
+.hero-cta {
+  display: inline-block;
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--fg);
+  border-bottom: 1px solid var(--accent);
+  padding-bottom: 3px;
+  transition: color 0.25s, border-color 0.25s;
+}
+
+.hero-cta:hover {
+  color: var(--accent);
+}
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border-top: 1px solid var(--border);
+  margin-top: clamp(3rem, 6vh, 4.5rem);
+  max-width: 640px;
+}
+
+.hero-stat {
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 1.5rem 0.25rem 0;
+}
+
+.hero-stat:not(:first-child) {
+  padding-left: 1.5rem;
+}
+
+.hero-stat-label {
+  font-family: var(--sans);
+  font-size: 0.6rem;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+}
+
+.hero-stat-value {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 400;
+  line-height: 1;
+  color: var(--fg);
+}
+
+.hero-stat-sub {
+  font-family: var(--sans);
+  font-size: 0.62rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 0.6rem;
+  padding-bottom: 1.25rem;
+}
+
+
+/* ============================================================
+   ABOUT
+   ============================================================ */
+.about-grid {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: clamp(3rem, 6vw, 6rem);
+  align-items: start;
+}
+
+.about-photo-img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+
+.about-bio {
+  font-family: var(--sans);
+  font-size: clamp(0.9rem, 1.2vw, 1.05rem);
+  font-weight: 300;
+  line-height: 1.9;
+  color: var(--fg);
+  margin-bottom: 2.5rem;
+}
+
+.about-languages {
+  font-family: var(--sans);
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 2.25rem;
+}
+
+/* The italic approach / philosophy line */
+.about-approach {
+  font-family: var(--serif);
+  font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--muted);
+  border-left: 1px solid var(--accent);
+  padding-left: 1.25rem;
+  line-height: 1.6;
+}
+
+
+/* ============================================================
+   WORK / BUILDING
+   ============================================================ */
+.work-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.work-item {
+  display: grid;
+  grid-template-columns: 2.75rem 1fr 1.5rem;
+  gap: 2rem;
+  align-items: start;
+  padding: 2.25rem 0;
+  border-top: 1px solid var(--border);
+  transition: border-color 0.3s ease;
+  cursor: default;
+}
+
+.work-item:last-child {
+  border-bottom: 1px solid var(--border);
+}
+
+.work-item:hover {
+  border-top-color: var(--accent);
+}
+
+.work-number {
+  font-family: var(--sans);
+  font-size: 0.6rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  padding-top: 0.5rem;
+}
+
+.work-title-row {
+  display: flex;
+  align-items: baseline;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.75rem;
+}
+
+.work-title {
+  font-family: var(--serif);
+  font-size: clamp(1.5rem, 2.8vw, 2.2rem);
+  font-weight: 300;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  color: var(--fg);
+}
+
+.work-role {
+  font-family: var(--sans);
+  font-size: 0.62rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.work-description {
+  font-family: var(--sans);
+  font-size: 0.875rem;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--muted);
+  max-width: 520px;
+  margin-bottom: 0.6rem;
+}
+
+/* Metric / result line — style as plain text once you add real numbers */
+.work-metric {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  font-style: italic;
+  color: var(--accent);
+  opacity: 0.75;
+}
+
+.work-arrow {
+  font-size: 1rem;
+  color: var(--muted);
+  padding-top: 0.4rem;
+  transition: color 0.25s, transform 0.25s;
+}
+
+.work-item:hover .work-arrow {
+  color: var(--fg);
+  transform: translate(2px, -2px);
+}
+
+
+/* ============================================================
+   STAT STRIP
+   Compact aggregate numbers row (Snapshot section).
+   ============================================================ */
+.stat-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.stat-strip-item {
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  padding: 2.25rem 0 2.1rem;
+}
+
+.stat-strip-value {
+  font-family: var(--serif);
+  font-size: clamp(1.9rem, 3.4vw, 2.4rem);
+  font-weight: 400;
+  line-height: 1;
+  color: var(--fg);
+}
+
+.stat-strip-label {
+  font-family: var(--sans);
+  font-size: 0.62rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 0.6rem;
+}
+
+
+/* ============================================================
+   SECTION TITLE / SUBTITLE
+   Shared heading style used by Process and Results.
+   ============================================================ */
+.section-title {
+  font-family: var(--serif);
+  font-size: clamp(1.75rem, 3.4vw, 2.75rem);
+  font-weight: 300;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--fg);
+  margin-bottom: clamp(1rem, 2vw, 1.5rem);
+  max-width: 20ch;
+}
+
+.section-subtitle {
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: var(--muted);
+  max-width: 52ch;
+  margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
+}
+
+
+/* ============================================================
+   PROCESS
+   ============================================================ */
+.process-list {
+  display: grid;
+  gap: 1px;
+  background: var(--border);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: clamp(3rem, 6vw, 4.5rem);
+}
+
+.process-item {
+  background: var(--bg);
+  display: grid;
+  grid-template-columns: 2.75rem 1fr;
+  gap: 1.25rem;
+  padding: 1.5rem 0;
+}
+
+.process-number {
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  color: var(--accent);
+  padding-top: 0.15rem;
+}
+
+.process-name {
+  font-family: var(--sans);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--fg);
+  margin-bottom: 0.35rem;
+}
+
+.process-desc {
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.addon-box {
+  border: 1px solid var(--border);
+  padding: clamp(1.75rem, 4vw, 2.75rem);
+}
+
+.addon-label {
+  font-family: var(--sans);
+  font-size: 0.6rem;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.addon-title {
+  font-family: var(--serif);
+  font-size: clamp(1.4rem, 2.6vw, 1.9rem);
+  font-weight: 300;
+  color: var(--fg);
+  margin-bottom: 1.5rem;
+  max-width: 20ch;
+}
+
+.addon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.75rem;
+}
+
+.addon-option {
+  border-top: 1px solid var(--border);
+  padding-top: 1.1rem;
+}
+
+.addon-option-title {
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--fg);
+  margin-bottom: 0.4rem;
+}
+
+.addon-option-desc {
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+
+/* ============================================================
+   RESULTS
+   ============================================================ */
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  margin-bottom: clamp(3.5rem, 7vw, 5rem);
+}
+
+.results-card {
+  background: var(--bg);
+  padding: 1.75rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.results-card-label {
+  font-family: var(--sans);
+  font-size: 0.6rem;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1.25rem;
+}
+
+.results-card-value {
+  font-family: var(--serif);
+  font-size: clamp(2.2rem, 4.5vw, 2.9rem);
+  font-weight: 400;
+  line-height: 1;
+  color: var(--fg);
+}
+
+.results-card-sub {
+  font-family: var(--sans);
+  font-size: 0.62rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 0.6rem;
+}
+
+.results-card-detail {
+  display: grid;
+  gap: 0.6rem;
+  margin-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1.25rem;
+  font-size: 0.85rem;
+}
+
+.results-card-detail > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.results-card-detail span:first-child {
+  color: var(--muted);
+  font-weight: 300;
+}
+
+.results-card-detail span:last-child {
+  color: var(--fg);
+  font-weight: 500;
+}
+
+.proof-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.proof-gallery figure {
+  margin: 0;
+}
+
+.proof-gallery img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: 1px solid var(--border);
+}
+
+.proof-gallery figcaption {
+  font-family: var(--sans);
+  font-size: 0.6rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 0.65rem;
+}
+
+
+/* ============================================================
+   WORKED WITH
+   ============================================================ */
+.worked-list {
+  display: grid;
+  gap: 1px;
+  background: var(--border);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.worked-item {
+  background: var(--bg);
+  padding: 1.4rem 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.75rem;
+}
+
+.worked-name {
+  font-family: var(--sans);
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--fg);
+}
+
+.worked-desc {
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  font-weight: 300;
+  color: var(--muted);
+}
+
+
+/* ============================================================
+   CONTACT
+   ============================================================ */
+.contact-content {
+  max-width: 600px;
+}
+
+.contact-headline {
+  font-family: var(--serif);
+  font-size: clamp(2.2rem, 5.5vw, 4.5rem);
+  font-weight: 300;
+  line-height: 1.05;
+  color: var(--fg);
+  margin-bottom: 1.25rem;
+  max-width: 16ch;
+}
+
+.contact-subtext {
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  font-weight: 300;
+  color: var(--muted);
+  margin-bottom: 2.5rem;
+}
+
+.contact-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+}
+
+.contact-cta-primary {
+  display: inline-block;
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--bg);
+  background: var(--fg);
+  padding: 0.95rem 1.75rem;
+  transition: background 0.25s, color 0.25s;
+}
+
+.contact-cta-primary:hover {
+  background: var(--accent);
+  color: var(--fg);
+}
+
+.contact-email {
+  display: inline-block;
+  font-family: var(--sans);
+  font-size: clamp(0.875rem, 1.4vw, 1.05rem);
+  font-weight: 300;
+  color: var(--fg);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 3px;
+  transition: border-color 0.25s;
+}
+
+.contact-email:hover {
+  border-color: var(--accent);
+}
+
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer {
+  padding: 2rem 0;
+}
+
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+}
+
+.footer-text {
+  font-family: var(--sans);
+  font-size: 0.6rem;
+  font-weight: 300;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+
+/* ============================================================
+   SCROLL REVEAL
+   Elements with class="reveal" fade up when they enter the
+   viewport. JavaScript in index.html adds "revealed" once visible.
+   ============================================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger siblings: each work item delays slightly more than the last */
+.work-item:nth-child(2) { transition-delay: 0.05s; }
+.work-item:nth-child(3) { transition-delay: 0.10s; }
+.work-item:nth-child(4) { transition-delay: 0.15s; }
+
+.process-item:nth-child(2) { transition-delay: 0.04s; }
+.process-item:nth-child(3) { transition-delay: 0.08s; }
+.process-item:nth-child(4) { transition-delay: 0.12s; }
+.process-item:nth-child(5) { transition-delay: 0.16s; }
+.process-item:nth-child(6) { transition-delay: 0.20s; }
+
+.results-card:nth-child(2) { transition-delay: 0.05s; }
+.results-card:nth-child(3) { transition-delay: 0.10s; }
+
+.proof-gallery figure:nth-child(2) { transition-delay: 0.05s; }
+.proof-gallery figure:nth-child(3) { transition-delay: 0.10s; }
+
+.worked-item:nth-child(2) { transition-delay: 0.05s; }
+.worked-item:nth-child(3) { transition-delay: 0.10s; }
+
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+/* Tablet */
+@media (max-width: 860px) {
+  .about-grid {
+    grid-template-columns: 220px 1fr;
+    gap: 3rem;
+  }
+}
+
+/* Mobile landscape / large phone */
+@media (max-width: 680px) {
+  .nav-links {
+    gap: 1.5rem;
+  }
+
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .about-photo-wrap {
+    max-width: 240px;
+  }
+
+  .work-item {
+    grid-template-columns: 2.25rem 1fr;
+  }
+
+  .work-arrow {
+    display: none;
+  }
+
+  .hero-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-stat:not(:first-child) {
+    padding-left: 0;
+    border-top: none;
+  }
+
+  .worked-item {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Small phone */
+@media (max-width: 420px) {
+  .nav-links {
+    gap: 1rem;
+  }
+
+  .nav-links a {
+    font-size: 0.6rem;
+  }
+
+  .work-item {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .work-number {
+    display: none;
+  }
+
+  .social-links {
+    gap: 0.5rem 1.5rem;
+  }
+}
