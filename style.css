@@ -18,12 +18,13 @@
    VARIABLES
    ============================================================ */
 :root {
-  /* Palette */
-  --bg:           #0A0A0A;   /* near-black background */
-  --fg:           #FAFAF8;   /* off-white text */
-  --muted:        #686868;   /* secondary / caption text */
-  --border:       #1C1C1C;   /* subtle dividers */
-  --accent:       #B8975A;   /* warm bronze — used sparingly */
+  /* Palette — light is the default theme */
+  --bg:           #F6F4EF;   /* warm paper */
+  --fg:           #1B1815;   /* warm ink */
+  --muted:        #7A7268;   /* warm taupe, secondary / caption text */
+  --border:       #E1DBCF;   /* soft warm hairline */
+  --accent:       #94612A;   /* deepened bronze — AA-legible on paper */
+  --nav-bg:       rgba(246, 244, 239, 0.90);
 
   /* Type */
   --serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
@@ -33,6 +34,16 @@
   --max-width:   1080px;
   --h-pad:       clamp(1.5rem, 5vw, 4rem);
   --section-pad: clamp(5rem, 12vh, 8rem);
+}
+
+/* Dark theme — opt-in via the toggle, remembered in localStorage */
+:root[data-theme="dark"] {
+  --bg:           #0A0A0A;   /* near-black background */
+  --fg:           #FAFAF8;   /* off-white text */
+  --muted:        #686868;   /* secondary / caption text */
+  --border:       #1C1C1C;   /* subtle dividers */
+  --accent:       #B8975A;   /* warm bronze — used sparingly */
+  --nav-bg:       rgba(10, 10, 10, 0.90);
 }
 
 
@@ -118,7 +129,7 @@ nav {
   justify-content: space-between;
   align-items: center;
   padding: 1.4rem var(--h-pad);
-  background: rgba(10, 10, 10, 0.90);
+  background: var(--nav-bg);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--border);
@@ -153,6 +164,42 @@ nav {
 .nav-links a:hover {
   color: var(--fg);
 }
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+  transition: border-color 0.25s ease, color 0.25s ease;
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent);
+  color: var(--fg);
+}
+
+.theme-icon {
+  font-size: 0.8rem;
+  line-height: 1;
+}
+
+.theme-icon-moon { display: none; }
+
+:root[data-theme="dark"] .theme-icon-sun { display: none; }
+:root[data-theme="dark"] .theme-icon-moon { display: block; }
 
 
 /* ============================================================
@@ -863,7 +910,7 @@ nav {
 
 .contact-cta-primary:hover {
   background: var(--accent);
-  color: var(--fg);
+  color: var(--bg);
 }
 
 .contact-email {
@@ -975,10 +1022,15 @@ footer {
     padding-bottom: 1.1rem;
   }
 
+  .nav-right {
+    width: 100%;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
   .nav-links {
     justify-content: flex-start;
     gap: 0.5rem 1.25rem;
-    width: 100%;
   }
 
   #hero {
