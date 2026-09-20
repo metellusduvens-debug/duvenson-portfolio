@@ -87,6 +87,7 @@ ul {
 section {
   padding: var(--section-pad) 0;
   border-bottom: 1px solid var(--border);
+  scroll-margin-top: 4.5rem;
 }
 
 /* Section label — the small uppercase tag above each section */
@@ -133,7 +134,9 @@ nav {
 
 .nav-links {
   display: flex;
-  gap: 2.5rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.6rem 2.5rem;
 }
 
 .nav-links a {
@@ -649,31 +652,122 @@ nav {
   font-weight: 500;
 }
 
+.proof-group-label {
+  font-family: var(--sans);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: clamp(2.5rem, 5vw, 3.5rem) 0 1.25rem;
+}
+
+.proof-group-label:first-of-type {
+  margin-top: 0;
+}
+
 .proof-gallery {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 1.5rem;
+  margin-bottom: clamp(1rem, 3vw, 1.5rem);
+}
+
+.proof-gallery-lg {
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.75rem;
+}
+
+/* Full-width single figure: for wide, short screenshots (like the TikTok
+   analytics banner) that lose legibility when squeezed into a column. */
+.proof-gallery-full {
+  grid-template-columns: 1fr;
+}
+
+.proof-gallery-full img {
+  max-height: 340px;
+  object-fit: contain;
+  background: #fff;
 }
 
 .proof-gallery figure {
   margin: 0;
 }
 
+.proof-gallery figure a {
+  display: block;
+  border: 1px solid var(--border);
+  background: #fff;
+  overflow: hidden;
+  transition: border-color 0.25s, transform 0.25s;
+}
+
+.proof-gallery figure a:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
 .proof-gallery img {
   width: 100%;
   height: auto;
   display: block;
-  border: 1px solid var(--border);
 }
 
 .proof-gallery figcaption {
   font-family: var(--sans);
-  font-size: 0.6rem;
+  font-size: 0.62rem;
   font-weight: 400;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--muted);
   margin-top: 0.65rem;
+}
+
+.proof-gallery-lg figcaption {
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  color: var(--fg);
+  font-weight: 500;
+}
+
+/* LinkedIn post-engagement strips: real numbers as the caption, image as
+   supporting evidence beneath. Two columns on desktop, one on mobile. */
+.li-posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+
+.li-posts-grid figure {
+  margin: 0;
+  border: 1px solid var(--border);
+  padding: 1.1rem 1.25rem 1.25rem;
+  transition: border-color 0.25s;
+}
+
+.li-posts-grid figure:hover {
+  border-color: var(--accent);
+}
+
+.li-posts-grid figcaption {
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--fg);
+  margin-bottom: 0.75rem;
+}
+
+.li-posts-grid figure a {
+  display: block;
+  border: 1px solid var(--border);
+  background: #fff;
+}
+
+.li-posts-grid img {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 
@@ -834,6 +928,15 @@ footer {
 .proof-gallery figure:nth-child(2) { transition-delay: 0.05s; }
 .proof-gallery figure:nth-child(3) { transition-delay: 0.10s; }
 
+.li-posts-grid figure:nth-child(2) { transition-delay: 0.04s; }
+.li-posts-grid figure:nth-child(3) { transition-delay: 0.08s; }
+.li-posts-grid figure:nth-child(4) { transition-delay: 0.12s; }
+.li-posts-grid figure:nth-child(5) { transition-delay: 0.16s; }
+.li-posts-grid figure:nth-child(6) { transition-delay: 0.20s; }
+.li-posts-grid figure:nth-child(7) { transition-delay: 0.24s; }
+.li-posts-grid figure:nth-child(8) { transition-delay: 0.28s; }
+.li-posts-grid figure:nth-child(9) { transition-delay: 0.32s; }
+
 .worked-item:nth-child(2) { transition-delay: 0.05s; }
 .worked-item:nth-child(3) { transition-delay: 0.10s; }
 
@@ -852,8 +955,26 @@ footer {
 
 /* Mobile landscape / large phone */
 @media (max-width: 680px) {
+  nav {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6rem;
+    padding-top: 1.1rem;
+    padding-bottom: 1.1rem;
+  }
+
   .nav-links {
-    gap: 1.5rem;
+    justify-content: flex-start;
+    gap: 0.5rem 1.25rem;
+    width: 100%;
+  }
+
+  #hero {
+    padding-top: 10rem;
+  }
+
+  section {
+    scroll-margin-top: 9.5rem;
   }
 
   .about-grid {
